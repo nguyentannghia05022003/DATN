@@ -20,7 +20,7 @@ async function bootstrap() {
   app.useStaticAssets(join(process.cwd(), 'public', 'images'), {
     prefix: '/images',
   });
-  // console.log((join(process.cwd(), 'public', 'images')))
+  console.log((join(process.cwd(), 'public', 'images')))
   app.setBaseViewsDir(join(__dirname, '..', 'views')); //view 
   app.setViewEngine('ejs');
 
@@ -38,7 +38,7 @@ async function bootstrap() {
       "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
       "preflightContinue": false,
       credentials: true,
-      allowedHeaders: 'Content-Type,Authorization',
+      allowedHeaders: 'Content-Type,Authorization,upload-type',
     }
   );
 
