@@ -11,7 +11,6 @@ import mongoose from 'mongoose';
 
 @Injectable()
 export class ProductsService {
-  // Cập nhật cấu trúc scannedProducts để bao gồm tên sản phẩm
   private scannedProducts: { barCode: string; name: string; quantityPurchased: number }[] = [];
 
   constructor(@InjectModel(Product.name) private productModel: SoftDeleteModel<ProductDocument>) { }
@@ -106,13 +105,13 @@ export class ProductsService {
       // Kiểm tra xem barCode đã tồn tại trong scannedProducts chưa
       const existingProduct = this.scannedProducts.find(p => p.barCode === newProduct.barCode);
       if (existingProduct) {
-        existingProduct.quantityPurchased += newProduct.quantityPurchased;
+        existingProduct.quantityPurchased += 1; // Cộng dồn, mỗi lần quét là 1
       } else {
-        // Thêm sản phẩm với tên vào mảng scannedProducts
+        // Thêm sản phẩm với quantityPurchased mặc định là 1
         this.scannedProducts.push({
           barCode: newProduct.barCode,
-          name: product.name, // Thêm tên sản phẩm
-          quantityPurchased: newProduct.quantityPurchased,
+          name: product.name,
+          quantityPurchased: 1,
         });
       }
     }
